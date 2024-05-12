@@ -62,7 +62,7 @@ If you do not have Miniforge installed, download and install it from the Minifor
 Create and activate the environment:
 
 ```bash
-conda env create -f environment.yml
+conda env create -f ../environment.yml
 conda activate nlavida
 ```
 
