@@ -7,7 +7,6 @@ prompt/user_description_of_file.txt
 tools/__pycache__/
 
 # Static data and system files
-static/data/*
 static/.DS_Store
 
 # Asset system files
