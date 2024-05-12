@@ -1,0 +1,7 @@
+OPENAI_API_KEY = your_OpenAI_api_key
+
+# Uncomment the following for tracing in LangSmith
+
+#LANGCHAIN_TRACING_V2=true
+#LANGCHAIN_PROJECT=NLAVIDA
+#LANGCHAIN_API_KEY=your_langchain_api_key

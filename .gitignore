@@ -1,0 +1,21 @@
+# Prompt files
+prompt/.DS_Store
+prompt/ames.txt
+prompt/user_description_of_file.txt
+
+# Tools cache
+tools/__pycache__/
+
+# Static data and system files
+static/data/*
+static/.DS_Store
+
+# Asset system files
+assets/.DS_Store
+
+# Source files
+src/main_more.py
+src/.DS_Store
+src/__pycache__/
+src/.env
+
