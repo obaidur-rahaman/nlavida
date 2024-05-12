@@ -27,8 +27,15 @@ This open-source tool provides a robust solution for data analysis and visualiza
 
 To get started with this project, clone the repository to your local machine and navigate to the source code directory:
 
+you can either use HTTP:
 ```bash
-git clone https://github.com/yourusername/yourrepository.git
+git clone https://github.com/obaidur-rahaman/nlavida.git
+cd nlavida/src
+```
+
+or SSH:
+```bash
+git clone git@github.com:obaidur-rahaman/nlavida.git
 cd nlavida/src
 ```
 
