@@ -76,7 +76,7 @@ python app.py
 
 Once it starts, you can access the application by typing the following address in your browser:
 
-http://127.0.0.1:8001
+http://127.0.0.1:8002
 
 ## Support
 

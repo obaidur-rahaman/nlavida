@@ -6,8 +6,8 @@ import werkzeug
 from tools.cleanup import cleanUserDescription
 load_dotenv()
 
-llm_model = "ollama"
-#llm_model = "openai"
+#llm_model = "ollama"
+llm_model = "openai"
 
 app = Flask(__name__, static_folder='../static')
 
