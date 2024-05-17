@@ -11,6 +11,10 @@ This open-source tool provides a robust solution for data analysis and visualiza
 
 ## Key Features
 
+- **Code Interpreter**: Enables direct execution and interpretation of code, providing a robust alternative to traditional scripting environments.
+
+- **Advanced Data Analytics**: Leverages sophisticated algorithms and the analytical power of GPT-4 to deliver deep insights into data, serving as a comprehensive tool for data scientists and analysts.
+
 - **Secure CSV File Upload**: Safely upload and process CSV files containing confidential data without the risk of exposure to external entities.
 
 - **Integration with OpenAI GPT-4**: Utilize the cutting-edge capabilities of GPT-4 for sophisticated data analysis and manipulation within a secure, controlled environment.

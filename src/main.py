@@ -54,7 +54,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
             llm = OllamaFunctions(model="llama3", temperature=0)
         # Initialize llm using OpenAI
         elif ("openai" == llm_model):
-            llm = ChatOpenAI(temperature=0, model="gpt-4-turbo")
+            llm = ChatOpenAI(temperature=0, model="gpt-4o")
 
         #callbacks=[AgentCallbackHandler()],
 
