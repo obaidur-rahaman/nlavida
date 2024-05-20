@@ -7,23 +7,24 @@
 
 ## Description
 
-This open-source tool provides a robust solution for data analysis and visualization, designed specifically for use within enterprise environments where confidentiality is paramount. It utilizes agents and tools to process structured data exclusively. Users can securely upload and manipulate CSV files. Unlike black-box solutions from other service providers, this tool offers full transparency and allows for extensive customization to meet specific internal needs. Leveraging the power of OpenAI's GPT-4, it enhances data processing capabilities, making it an indispensable resource for researchers, data scientists, and business analysts working with confidential information.
+This open-source tool provides a robust solution for data analysis and visualization, designed specifically for use within enterprise environments where confidentiality is paramount. It utilizes agents and tools to process structured data exclusively. Users can securely upload and manipulate files. Unlike black-box solutions from other service providers, this tool offers full transparency and allows for extensive customization to meet specific internal needs. Leveraging the power of OpenAI's GPT-4o, it enhances data processing capabilities, making it an indispensable resource for researchers, data scientists, and business analysts working with confidential information.
 
 ## Key Features
 
-- **Code Interpreter**: Enables direct execution and interpretation of code, providing a robust alternative to traditional scripting environments.
+### Confidentiality
+- **Secure File Upload**: Safely upload and process confidential files.
+- **Integration with OpenAI GPT-4o**: Leverage GPT-4o for secure data analysis and manipulation.
+- **Enterprise-Ready**: Compliant with internal data security protocols.
 
-- **Advanced Data Analytics**: Leverages sophisticated algorithms and the analytical power of GPT-4 to deliver deep insights into data, serving as a comprehensive tool for data scientists and analysts.
+### Customizability
+- **Flexible Architecture**: Extensively customizable to fit specific internal processes.
+- **Advanced Analytics & Code Execution**: Utilize sophisticated algorithms and GPT-4o for deep data insights, with direct code execution for robust scripting.
+- **In-House Solutions**: Customizable to build comprehensive in-house solutions to meet all internal needs.
 
-- **Secure CSV File Upload**: Safely upload and process CSV files containing confidential data without the risk of exposure to external entities.
+### Cost
+- **Scalability**: Scales with organizational needs, ensuring cost-effective growth.
+- **Cost Efficiency**: Eliminates the need for subscriptions to external service providers. Future versions will use free and open-source LLMs, reducing costs further.
 
-- **Integration with OpenAI GPT-4**: Utilize the cutting-edge capabilities of GPT-4 for sophisticated data analysis and manipulation within a secure, controlled environment.
-
-- **Customization-Friendly**: Offers a flexible architecture that can be extensively customized to fit specific internal processes and requirements, providing a clear advantage over rigid, black-box solutions offered by other service providers.
-
-- **Enterprise-Ready**: Designed with enterprise needs in mind, ensuring compliance with internal data security protocols and privacy standards.
-
-- **Scalability**: Engineered to scale with your organization’s needs, accommodating large datasets and complex analytical tasks effortlessly.
 
 ## Installation
 
