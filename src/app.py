@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 from dotenv import load_dotenv
 from main import generate_answer
 import os
@@ -10,6 +10,7 @@ load_dotenv()
 llm_model = "openai"
 
 app = Flask(__name__, static_folder='../static')
+app.secret_key = 'supersecretkey'  # Needed for session management
 
 @app.route("/")
 def index():
@@ -31,9 +32,13 @@ def upload_file():
     if file.filename == '':
         print("No selected file")
         return 'No selected file', 400
-    if file and file.filename.endswith('.csv'):
+    if file:
         filename = werkzeug.utils.secure_filename(file.filename)
         file.save(os.path.join('../static/data/', filename))  # Adjust the directory path as necessary
+        
+        # Save the filename in the session
+        session['uploaded_filename'] = filename
+        
         return 'File uploaded successfully', 200
     else:
         return 'Invalid file type', 400
@@ -43,8 +48,14 @@ def save_description():
     description = request.form['description']
     prompt_directory = '../prompt'
     os.makedirs(prompt_directory, exist_ok=True)  # Ensure the directory exists
+    
+    # Retrieve the filename from the session
+    filename = session.get('uploaded_filename', 'unknown_file')
+    file_content = f"The name of the file is {filename}\n{description}"
+    
     with open(os.path.join(prompt_directory, 'user_description_of_file.txt'), 'w') as file:
-        file.write(description)
+        file.write(file_content)
+    
     return "Description saved successfully"
 
 if __name__ == "__main__":
