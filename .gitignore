@@ -1,3 +1,6 @@
+# Root files
+.DS_Store
+
 # Prompt files
 prompt/.DS_Store
 prompt/ames.txt

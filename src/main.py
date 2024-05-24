@@ -60,8 +60,8 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
 
         # Define the enhanced prefix with plotting instructions
         enhanced_prefix = """
-        You are an agent designed to write python code to answer questions. 
-        You have access to a Python REPL, which you can be used to execute the python code that you generate.
+        You are an agent designed to write python code and invoke a Python REPL tool that can execute the python code that you generate.
+        You can invoke it with the Action name "Python_REPL".
         This tool supports data access, manipulation, and visualization. Feel free to use it to generate plots.
         If you get an error, debug your code and try again.
         Only use the output of your code to answer the question.
