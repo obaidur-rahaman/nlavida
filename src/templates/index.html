@@ -131,43 +131,44 @@
         const spinner = document.getElementById("spinner");
         const answerDiv = document.getElementById("answer");
         const responseP = document.getElementById("response");
-
-    form.addEventListener("submit", (ev) => {
-        ev.preventDefault();
-        document.getElementById('uploadStatus').innerHTML = ''; // Clear the upload status
-        answerDiv.style.display = "none";
-        spinner.style.display = "block"; // Show the spinner when the form is submitted
-
-        const formData = new FormData(form);
-
-        fetch("/process", {method: "POST", body: formData})
-            .then(response => {
-                spinner.style.display = "none";
-                if (response.ok) return response.json();
-                throw new Error("POST request failed");
-            })
-            .then(data => {
-                responseP.textContent = data.answer;
-                const imageContainer = document.getElementById('imageContainer');
-                imageContainer.innerHTML = ''; // Clear the old image
-                if (data.image) { // Only attempt to load an image if the image field is not null
-                    const img = new Image();
-                    img.src = data.image; // Set the src to the image file path
-                    img.onerror = function() {
-                        console.error('No image found at ' + img.src);
-                    };
-                    imageContainer.appendChild(img); // Append the new image
-                }
-                answerDiv.style.display = "";
-            })
-            .catch(error => {
-                console.error("Failed to fetch:", error);
-                responseP.textContent = "Error fetching answer.";
-                answerDiv.style.display = "";
-            });
-    });
-
-    </script>
+    
+        form.addEventListener("submit", (ev) => {
+            ev.preventDefault();
+            document.getElementById('uploadStatus').innerHTML = ''; // Clear the upload status
+            answerDiv.style.display = "none";
+            spinner.style.display = "block"; // Show the spinner when the form is submitted
+    
+            const formData = new FormData(form);
+    
+            fetch("/process", {method: "POST", body: formData})
+                .then(response => {
+                    spinner.style.display = "none";
+                    if (response.ok) return response.json();
+                    throw new Error("POST request failed");
+                })
+                .then(data => {
+                    responseP.textContent = data.answer;
+                    const imageContainer = document.getElementById('imageContainer');
+                    imageContainer.innerHTML = ''; // Clear the old images
+                    if (data.images && data.images.length > 0) { // Check if there are any images
+                        data.images.forEach(image => {
+                            const img = new Image();
+                            img.src = image; // Set the src to the image file path
+                            img.onerror = function() {
+                                console.error('No image found at ' + img.src);
+                            };
+                            imageContainer.appendChild(img); // Append the new image
+                        });
+                    }
+                    answerDiv.style.display = "";
+                })
+                .catch(error => {
+                    console.error("Failed to fetch:", error);
+                    responseP.textContent = "Error fetching answer.";
+                    answerDiv.style.display = "";
+                });
+        });
+    </script>    
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>

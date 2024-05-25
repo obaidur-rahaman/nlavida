@@ -19,9 +19,9 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     question = request.form['name']
-    answer, image_file_path = generate_answer(question, llm_model)  # Assuming this returns a tuple
-    print(f"answer = {answer}, image_file_path = {image_file_path}")
-    return jsonify({'answer': answer, 'image': image_file_path})  # Include the image string and format in the response
+    answer, image_file_paths = generate_answer(question, llm_model)  # Assuming this returns a tuple
+    print(f"answer = {answer}, image_file_paths = {image_file_paths}")
+    return jsonify({'answer': answer, 'images': image_file_paths})  # Include the image paths list in the response
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

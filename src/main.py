@@ -69,6 +69,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
         If it does not seem like you can write code to answer the question, just return "I don't know" as the answer.
         Do not simulate any data or files. You can safely assume that the Python REPL has access to all the files with data. 
         If you give any plotting instruction to the Python REPL, also give instruction to save the plot as a file. For example: plt.savefig('plot.svg')
+        If possible generate visualizations instead of just printing the answer.
         """
 
         
@@ -117,7 +118,6 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
         final_answer = "" 
         try:
             response = agent_executor.invoke({"input": question, "chat_history": []})
-            # Check if the response contains an image
             final_answer = response['output']
         except Exception as e:
             # Log the error message and traceback
@@ -132,9 +132,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
                     logging.info(f"Python Agent Output: {step['output']}")
 
 
-        image_file_path = ""
-
-        # Check if an image is generated
+        image_file_paths = []
 
         # Find image files in the directory
         image_files = glob.glob('../static/data/*.*')
@@ -142,8 +140,10 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
         for image_file in image_files:
             if image_file.split('.')[-1] in image_extensions:
                 image_file_path = url_for('static', filename='data/' + os.path.basename(image_file))
-        print(f"final_answer is = : {final_answer}, image_file_path is = : {image_file_path}")
-        return final_answer, image_file_path
+                image_file_paths.append(image_file_path)
+
+        print(f"final_answer is = : {final_answer}, image_file_paths are = : {image_file_paths}")
+        return final_answer, image_file_paths
 
     except Exception as e:
         logging.error("An error occurred while processing the question.", exc_info=True)
