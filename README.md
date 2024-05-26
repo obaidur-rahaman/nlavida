@@ -1,9 +1,12 @@
 # Natural Language-Assisted Visualization and Interactive Data Analysis (NLAVIDA)
 
 <p align="center">
-  <img src="/assets/logo.jpg" alt="Logo" width="50%">
+  <img src="/assets/logo.jpg" alt="Logo" width="10%">
 </p>
 
+## Introduction Video
+
+[![Watch the video](https://img.youtube.com/vi/leJRP_mJsSQ/0.jpg)](https://www.youtube.com/watch?v=leJRP_mJsSQ&t=4s)
 
 ## Description
 
