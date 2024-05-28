@@ -52,8 +52,13 @@ def save_description():
     
     # Retrieve the filename from the session
     filename = session.get('uploaded_filename', 'unknown_file')
-    file_content = f"The name of the file is {filename}\n{description}\n"
-    
+
+    # Check if the filename is metadata.csv
+    if filename == 'metadata.csv':
+        file_content = f"You can use this meta data file named {filename} to extract information about the other files. Pass the information about the presence of metadata.csv to the python agent. \n{description}\n"
+    else:
+        file_content = f"You have access to this file named {filename} for further processing\n{description}\n"
+
     # Define the path to the file
     file_path = os.path.join(prompt_directory, 'user_description_of_file.txt')
 

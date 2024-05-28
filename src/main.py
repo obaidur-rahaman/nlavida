@@ -70,6 +70,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str]:
         Do not simulate any data or files. You can safely assume that the Python REPL has access to all the files with data. 
         If you give any plotting instruction to the Python REPL, also give instruction to save the plot as a file. For example: plt.savefig('plot.svg')
         If possible generate visualizations instead of just printing the answer.
+        If the grand agent informs you about the presence of a metadata file named metadata.csv, use this file to extract information about the other tables instead of opening all files.
         """
 
         
