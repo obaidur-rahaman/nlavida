@@ -1,7 +1,7 @@
 # Natural Language-Assisted Visualization and Interactive Data Analysis (NLAVIDA)
 
 <p align="center">
-  <img src="/assets/logo.jpg" alt="Logo" width="10%">
+  <img src="/assets/logo.jpg" alt="Logo" width="20%">
 </p>
 
 ## Introduction Video

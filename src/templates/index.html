@@ -173,61 +173,83 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function() {
-            let descriptionInputAppended = false; // Flag to check if inputs have been appended
-        
             const form = $('#name-form');
             const fileInput = $('#file');
-        
-            form.on('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-        
-                // Check if a file is selected and the description inputs haven't been added
-                if (fileInput[0].files.length > 0 && !descriptionInputAppended) {
-                    $.ajax({
-                        url: '/upload',
-                        type: 'POST',
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            if (!descriptionInputAppended) { // Double check to prevent race conditions
-                                $('#uploadStatus').html('<p>File uploaded successfully, would you like to briefly describe its content to me?</p>');
-                                $('#uploadStatus').append('<input type="text" placeholder="Describe your file..." id="fileDescription"><button onclick="submitDescription()">Submit</button>');
-                                descriptionInputAppended = true; // Set the flag to prevent future additions
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            $('#uploadStatus').html('<p>An error occurred: ' + error + '</p>');
-                        }
-                    });
-                }
-            });
-        
+            const uploadStatus = $('#uploadStatus');
+            let timeoutId;
+
             fileInput.change(function() {
-                descriptionInputAppended = false; // Reset the flag when a new file is selected
-                $('#uploadStatus').html(''); // Clear the upload status
-                form.submit(); // Automatically submit the form on file select
+                // Clear previous upload status and description input
+                uploadStatus.html('');
+                // Clear any existing timeout to prevent interference
+                clearTimeout(timeoutId);
+                // Disable file input to prevent concurrent uploads
+                fileInput.prop('disabled', true);
+                // Perform the file upload
+                uploadFile();
             });
-        
-            window.submitDescription = function() {
-                var description = $('#fileDescription').val();
+
+            function uploadFile() {
+                const formData = new FormData(form[0]);
+                formData.append('file', fileInput[0].files[0]);
+
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        fileInput.prop('disabled', false);  // Re-enable file input
+                        if (data.error) {
+                            uploadStatus.html('<p>' + data.error + '</p>');
+                        } else {
+                            // Display the description input box after a successful file upload
+                            uploadStatus.html('<p>File uploaded successfully, would you like to briefly describe its content to me?</p>');
+                            uploadStatus.append(`
+                                <input type="text" placeholder="Describe your file..." id="fileDescription">
+                                <button id="descSubmitBtn" type="button" style="padding: 10px 20px; background: #ff8800; color: white; border: none; cursor: pointer;">Submit</button>
+                            `);
+
+                            // Add event listener for the new submit button
+                            $('#descSubmitBtn').off('click').on('click', function() {
+                                submitDescription();
+                            });
+
+                            // Add event listener for the enter key on the description input
+                            $('#fileDescription').off('keypress').on('keypress', function(e) {
+                                if (e.which == 13) { // Enter key pressed
+                                    submitDescription();
+                                }
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        fileInput.prop('disabled', false);  // Re-enable file input on error
+                        uploadStatus.html('<p>An error occurred: ' + error + '</p>');
+                    }
+                });
+            }
+
+            function submitDescription() {
+                const description = $('#fileDescription').val();
+
                 $.ajax({
                     url: '/save_description',
                     type: 'POST',
                     data: { description: description },
                     success: function(response) {
-                        $('#uploadStatus').html('<p>Description saved successfully.</p>');
-                        setTimeout(function() { $('#uploadStatus').html(''); }, 5000); // Clear the success message after 5 seconds
+                        uploadStatus.html('<p>Description saved successfully.</p>');
+                        timeoutId = setTimeout(function() { uploadStatus.html(''); }, 5000);
                     },
                     error: function(xhr, status, error) {
-                        $('#uploadStatus').html('<p>Error saving description: ' + error + '</p>');
+                        uploadStatus.html('<p>Error saving description: ' + error + '</p>');
                     }
                 });
-            };
+            }
         });
+
         </script>
                          
-    
 </body>
 </html>

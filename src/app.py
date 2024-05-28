@@ -27,21 +27,22 @@ def process():
 def upload_file():
     if 'file' not in request.files:
         print("No file part")
-        return 'No file part', 400
+        return jsonify({'error': 'No file part'}), 400
     file = request.files['file']
     if file.filename == '':
         print("No selected file")
-        return 'No selected file', 400
+        return jsonify({'error': 'No selected file'}), 400
     if file:
         filename = werkzeug.utils.secure_filename(file.filename)
         file.save(os.path.join('../static/data/', filename))  # Adjust the directory path as necessary
         
         # Save the filename in the session
         session['uploaded_filename'] = filename
+        session.modified = True  # Ensure session changes are saved
         
-        return 'File uploaded successfully', 200
+        return jsonify({'message': 'File uploaded successfully', 'filename': filename}), 200
     else:
-        return 'Invalid file type', 400
+        return jsonify({'error': 'Invalid file type'}), 400
 
 @app.route('/save_description', methods=['POST'])
 def save_description():
@@ -51,10 +52,20 @@ def save_description():
     
     # Retrieve the filename from the session
     filename = session.get('uploaded_filename', 'unknown_file')
-    file_content = f"The name of the file is {filename}\n{description}"
+    file_content = f"The name of the file is {filename}\n{description}\n"
     
-    with open(os.path.join(prompt_directory, 'user_description_of_file.txt'), 'w') as file:
-        file.write(file_content)
+    # Define the path to the file
+    file_path = os.path.join(prompt_directory, 'user_description_of_file.txt')
+
+    # Check if the file exists
+    if os.path.exists(file_path):
+        # Append the content if the file exists
+        with open(file_path, 'a') as file:
+            file.write(file_content)
+    else:
+        # Write the content if the file does not exist
+        with open(file_path, 'w') as file:
+            file.write(file_content)
     
     return "Description saved successfully"
 
