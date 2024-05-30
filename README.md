@@ -47,20 +47,6 @@ git clone git@github.com:obaidur-rahaman/nlavida.git
 cd nlavida
 ```
 
-#### Generate API key and setup environment 
-
-To use the OpenAI API, you need an API key, which is used to authenticate requests to the API. Here’s how to obtain your API key:
-
-Visit the website https://platform.openai.com/api-keys (create an account if you do not have one) and generate a new secret key. For best practices on handling your API key, please refer to: https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key.
-
-Next, copy the example environment file and enter your API key:
-
-```bash
-cp .envExample .env
-```
-
-Use your favorite editor to open the .env file and replace your_OpenAI_api_key with the OpenAI API key you just created.
-
 #### Set up Poetry
 
 If you do not have Poetry installed, install it following the instruction here: https://python-poetry.org/docs/#installing-with-pipx
@@ -77,12 +63,26 @@ Activate the virtual environment:
 poetry shell
 ```
 
+#### Generate API key and setup environment 
+
+To use the OpenAI API, you need an API key, which is used to authenticate requests to the API. Here’s how to obtain your API key:
+
+Visit the website https://platform.openai.com/api-keys (create an account if you do not have one) and generate a new secret key. For best practices on handling your API key, please refer to: https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key.
+
+Next, copy the example environment file and enter your API key:
+
+```bash
+cd src
+cp .envExample .env
+```
+
+Use your favorite editor to open the .env file and replace your_OpenAI_api_key with the OpenAI API key you just created.
+
 #### Start the application
 
 You can now start your application:
 
 ```bash
-cd src
 python app.py
 ```
 
