@@ -44,7 +44,7 @@ cd nlavida/src
 or SSH:
 ```bash
 git clone git@github.com:obaidur-rahaman/nlavida.git
-cd nlavida/src
+cd nlavida
 ```
 
 #### Generate API key and setup environment 
@@ -61,17 +61,20 @@ cp .envExample .env
 
 Use your favorite editor to open the .env file and replace your_OpenAI_api_key with the OpenAI API key you just created.
 
-#### Set up Conda
+#### Set up Poetry
 
-To set up the necessary Conda environment to run this project with Miniforge, follow these steps:
+If you do not have Poetry installed, install it following the instruction here: https://python-poetry.org/docs/#installing-with-pipx
 
-If you do not have Miniforge installed, download and install it from the Miniforge GitHub Releases page, following the installation instructions for your operating system.
-
-Create and activate the environment:
+Install the dependencies:
 
 ```bash
-conda env create -f ../environment.yaml
-conda activate nlavida
+poetry install
+```
+
+Activate the virtual environment:
+
+```bash
+poetry shell
 ```
 
 #### Start the application
@@ -79,6 +82,7 @@ conda activate nlavida
 You can now start your application:
 
 ```bash
+cd src
 python app.py
 ```
 
