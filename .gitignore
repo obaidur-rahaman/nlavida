@@ -21,3 +21,6 @@ src/.DS_Store
 src/__pycache__/
 src/.env
 
+# Tests files
+tests/__pycache__
+

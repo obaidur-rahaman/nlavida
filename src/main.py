@@ -17,8 +17,6 @@ import pickle
 import logging
 import traceback
 import sys
-from pandasai import SmartDataframe
-from pandasai.llm import OpenAI
 import logging
 from pandas.tests.io.parser.conftest import csv_dir_path
 from langchain.globals import set_debug
