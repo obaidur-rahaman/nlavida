@@ -38,7 +38,7 @@ To get started with this project, clone the repository to your local machine and
 you can either use HTTP:
 ```bash
 git clone https://github.com/obaidur-rahaman/nlavida.git
-cd nlavida/src
+cd nlavida
 ```
 
 or SSH:
@@ -49,7 +49,7 @@ cd nlavida
 
 #### Set up Poetry
 
-If you do not have Poetry installed, install it following the instruction here: https://python-poetry.org/docs/#installing-with-pipx
+If you do not have Poetry installed, install it following the instruction here: https://python-poetry.org/docs/#installing-with-the-official-installer
 
 Install the dependencies:
 
