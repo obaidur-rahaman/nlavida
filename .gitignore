@@ -1,5 +1,6 @@
 # Root files
 .DS_Store
+.tox
 
 # Prompt files
 prompt/.DS_Store
