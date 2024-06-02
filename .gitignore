@@ -21,6 +21,7 @@ src/main_more.py
 src/.DS_Store
 src/__pycache__/
 src/.env
+src/*.egg-info
 
 # Tests files
 tests/__pycache__
