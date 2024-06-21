@@ -1,27 +1,37 @@
-from flask import Flask, render_template, request, jsonify, session
+import json
+import logging
+import traceback
+from typing import Tuple
+from flask import url_for, Flask, send_from_directory, request, jsonify, session
 from dotenv import load_dotenv
-from main import generate_answer
 import os
 import werkzeug
 from tools.cleanup import cleanUserDescription
+from main import generate_answer
+from flask_cors import CORS
+
 load_dotenv()
 
-#llm_model = "ollama"
 llm_model = "openai"
 
-app = Flask(__name__, static_folder='../static')
-app.secret_key = 'supersecretkey'  # Needed for session management
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+app.secret_key = 'supersecretkey'
+CORS(app)
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route("/", defaults={'path': ''})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/process', methods=['POST'])
 def process():
     question = request.form['name']
-    answer, image_file_paths = generate_answer(question, llm_model)  # Assuming this returns a tuple
-    print(f"answer = {answer}, image_file_paths = {image_file_paths}")
-    return jsonify({'answer': answer, 'images': image_file_paths})  # Include the image paths list in the response
+    answer, image_file_paths = generate_answer(question, llm_model)
+    print(f"answer = {answer}, image_file_paths in app.py= {image_file_paths}")  # Log the paths
+    return jsonify({'answer': answer, 'images': image_file_paths})
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -34,11 +44,12 @@ def upload_file():
         return jsonify({'error': 'No selected file'}), 400
     if file:
         filename = werkzeug.utils.secure_filename(file.filename)
-        file.save(os.path.join('../static/data/', filename))  # Adjust the directory path as necessary
+        save_path = os.path.join(app.root_path, 'static/data/')
+        os.makedirs(save_path, exist_ok=True)
+        file.save(os.path.join(save_path, filename))
         
-        # Save the filename in the session
         session['uploaded_filename'] = filename
-        session.modified = True  # Ensure session changes are saved
+        session.modified = True
         
         return jsonify({'message': 'File uploaded successfully', 'filename': filename}), 200
     else:
@@ -46,38 +57,34 @@ def upload_file():
 
 @app.route('/save_description', methods=['POST'])
 def save_description():
-    description = request.form['description']
-    prompt_directory = '../prompt'
-    os.makedirs(prompt_directory, exist_ok=True)  # Ensure the directory exists
+    description = request.json.get('description')
+    prompt_directory = os.path.join(app.root_path, 'prompt')
+    os.makedirs(prompt_directory, exist_ok=True)
     
-    # Retrieve the filename from the session
     filename = session.get('uploaded_filename', 'unknown_file')
 
-    # Check if the filename is metadata.csv
     if filename == 'metadata.csv':
         file_content = f"You can use this meta data file named {filename} to extract information about the other files. Pass the information about the presence of metadata.csv to the python agent. \n{description}\n"
     else:
         file_content = f"You have access to this file named {filename} for further processing\n{description}\n"
 
-    # Define the path to the file
     file_path = os.path.join(prompt_directory, 'user_description_of_file.txt')
 
-    # Check if the file exists
     if os.path.exists(file_path):
-        # Append the content if the file exists
         with open(file_path, 'a') as file:
             file.write(file_content)
     else:
-        # Write the content if the file does not exist
         with open(file_path, 'w') as file:
             file.write(file_content)
     
     return "Description saved successfully"
 
+@app.route('/static/data/<path:filename>')
+def serve_static_data(filename):
+    return send_from_directory('static/data', filename)
+
 if __name__ == "__main__":
-    # Get the absolute path of the current directory
     current_directory = os.path.abspath(os.path.dirname(__file__))
-    # Go one directory up
     root_directory = os.path.dirname(current_directory) + "/"
-    cleanUserDescription(root_directory)
+    cleanUserDescription(root_directory + "backend/")
     app.run(host="0.0.0.0", debug=True, port=8002)

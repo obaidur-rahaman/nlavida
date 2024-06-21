@@ -1,27 +1,23 @@
 # Root files
 .DS_Store
 .tox
-
-# Prompt files
-prompt/.DS_Store
-prompt/ames.txt
-prompt/user_description_of_file.txt
+.pytest_cache
 
 # Tools cache
 tools/__pycache__
 
-# Static data and system files
-static/.DS_Store
-
 # Asset system files
 assets/.DS_Store
 
-# Source files
-src/main_more.py
-src/.DS_Store
-src/__pycache__
-src/.env
-src/*.egg-info
+# Backend files
+backend/main_more.py
+backend/.DS_Store
+backend/__pycache__
+backend/.env
+backend/*.egg-info
+backend/prompt/.DS_Store
+backend/prompt/user_description_of_file.txt
+backend/static/.DS_Store
 
 # Tests files
 tests/__pycache__

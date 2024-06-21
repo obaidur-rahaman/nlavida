@@ -72,7 +72,7 @@ Visit the website https://platform.openai.com/api-keys (create an account if you
 Next, copy the example environment file and enter your API key:
 
 ```bash
-cd src
+cd backend
 cp .envExample .env
 ```
 

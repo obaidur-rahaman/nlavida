@@ -1,0 +1,112 @@
+/* src/App.css */
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #ffffff; /* Set background color to white */
+  color: #2c2c2c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Temporarily remove the logo-header to diagnose the issue */
+/*
+.logo-header {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logo-header img {
+  height: 50px; 
+}
+*/
+
+header, main, footer {
+  width: 100%;
+  padding: 20px;
+  border-radius: 30px; /* Rounded corners */
+  background-color: white;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 70%;
+}
+
+.file-upload-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.file-upload-btn span {
+  font-size: 1em; /* Reduced size for the paperclip icon */
+}
+
+.file-upload-input {
+  display: none;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: #2c2c2c;
+  border-radius: 15px; /* Rounded corners */
+}
+
+button[type="submit"], button[type="button"] {
+  padding: 10px 20px;
+  background: #ff8800;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 10px;
+  border-radius: 15px; /* Rounded corners */
+}
+
+#spinner {
+  display: none; /* Hidden by default */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border-left-color: #ff8800; /* Orange color */
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#uploadStatus {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#descriptionInput {
+  margin-top: 20px;
+}
+
+#descriptionInput button {
+  font-size: 1.2em; /* Match the font size of "Ask NLAVIDA" */
+}
