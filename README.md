@@ -78,6 +78,15 @@ cp .envExample .env
 
 Use your favorite editor to open the .env file and replace your_OpenAI_api_key with the OpenAI API key you just created.
 
+#### Build the frontend
+
+You can build the frontend using these commands:
+
+```bash
+npm install
+npm run build
+```
+
 #### Start the application
 
 You can now start your application:
