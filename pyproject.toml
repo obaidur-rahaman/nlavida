@@ -6,7 +6,7 @@ authors = ["obaidur-rahaman <ramieor@gmail.com>"]
 license = "Apache License 2.0"
 readme = "README.md"
 packages = [
-    { include = "src" }
+    { include = "backend" }
 ]
 
 [tool.poetry.dependencies]
