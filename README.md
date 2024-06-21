@@ -63,6 +63,16 @@ Activate the virtual environment:
 poetry shell
 ```
 
+#### Build the frontend
+
+You can build the frontend using these commands:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
 #### Generate API key and setup environment 
 
 To use the OpenAI API, you need an API key, which is used to authenticate requests to the API. Here’s how to obtain your API key:
@@ -72,20 +82,11 @@ Visit the website https://platform.openai.com/api-keys (create an account if you
 Next, copy the example environment file and enter your API key:
 
 ```bash
-cd backend
+cd ../backend
 cp .envExample .env
 ```
 
 Use your favorite editor to open the .env file and replace your_OpenAI_api_key with the OpenAI API key you just created.
-
-#### Build the frontend
-
-You can build the frontend using these commands:
-
-```bash
-npm install
-npm run build
-```
 
 #### Start the application
 
