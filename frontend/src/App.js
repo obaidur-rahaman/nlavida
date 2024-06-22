@@ -128,11 +128,9 @@ function App() {
           <button type="submit">Ask NLAVIDA</button>
         </form>
         <div id="uploadStatus">{uploadStatus}</div>
-        {loading && (
-          <div id="spinner">
-            <div className="spinner"></div>
-          </div>
-        )}
+        <div id="spinner" className={loading ? 'visible' : ''}>
+          <div className="spinner"></div>
+        </div>
         {showDescriptionInput && !descriptionSubmitted && (
           <div id="descriptionInput">
             <input

@@ -84,14 +84,22 @@ button[type="submit"], button[type="button"] {
   z-index: 1000;
 }
 
-.spinner {
-  border: 8px solid rgba(0, 0, 0, 0.1);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border-left-color: #ff8800; /* Orange color */
-  animation: spin 1s infinite linear;
+#spinner.visible {
+  display: block; /* Show when the visible class is added */
 }
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Light gray background */
+  border-top: 4px solid #ff8800; /* Orange color for the top */
+  border-right: 4px solid #ff8800; /* Orange color for the right */
+  border-bottom: 4px solid transparent; /* Transparent for the bottom */
+  border-left: 4px solid transparent; /* Transparent for the left */
+  width: 15px; /* Smaller width */
+  height: 15px; /* Smaller height */
+  border-radius: 50%; /* Circular shape */
+  animation: spin 1s infinite linear; /* Spinning animation */
+}
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
