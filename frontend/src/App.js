@@ -92,6 +92,9 @@ function App() {
 
   return (
     <div className="App">
+      <header className="logo-header">
+        <img src="/logo.jpg" alt="logo" />
+      </header>
       <main>
         <div id="answer" style={{ display: response ? '' : 'none' }}>
           <h2>Answer:</h2>
