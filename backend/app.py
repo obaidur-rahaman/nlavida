@@ -12,6 +12,8 @@ from flask_cors import CORS
 
 load_dotenv()
 
+#llm_model = "ollama"
+#llm_model = "groq"
 llm_model = "openai"
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
@@ -64,9 +66,9 @@ def save_description():
     filename = session.get('uploaded_filename', 'unknown_file')
 
     if filename == 'metadata.csv':
-        file_content = f"You can use this meta data file named {filename} to extract information about the other files. Pass the information about the presence of metadata.csv to the python agent. \n{description}\n"
+        file_content = f"You can use this meta data file with filename = {filename} to extract information about the other files. Pass the information about the presence of metadata.csv to the python agent. \n{description}\n"
     else:
-        file_content = f"You have access to this file named {filename} for further processing\n{description}\n"
+        file_content = f"You have access to this file with filename = {filename} for further processing\n{description}\n"
 
     file_path = os.path.join(prompt_directory, 'user_description_of_file.txt')
 

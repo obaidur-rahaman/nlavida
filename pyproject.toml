@@ -76,9 +76,11 @@ statsmodels = "0.14.1"
 tornado = "6.4"
 tqdm = "4.66.2"
 traitlets = "5.14.3"
-urllib3 = "2.2.1"
 zipp = "3.17.0"
 flask-cors = "^4.0.1"
+more-itertools = "^10.3.0"
+groq = "^0.9.0"
+langchain-groq = "^0.1.5"
 
 [tool.poetry.group.dev.dependencies]
 astor = "0.8.1"

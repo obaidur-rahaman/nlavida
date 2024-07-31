@@ -51,6 +51,10 @@ def sanitize_input(query: str) -> str:
     # Removes whitespace & ` from end
     query = re.sub(r"(\s|`)*$", "", query)
 
+    # Remove any text after the actual Python code and lines starting with Thought:
+    query = re.split(r'\n?```\n?', query)[0].strip()
+    query = re.sub(r'^Thought:.*$', '', query, flags=re.MULTILINE)
+
     # The code will also fail if it tries to show a plot.
     # Let's handle that sitution as well
 
@@ -61,11 +65,8 @@ def sanitize_input(query: str) -> str:
         query = re.sub(r"plt.show\(\)", "", query)
         query = query + "\nprint(\"Plot is created successfully.\")\n"
     else: # In case plotting is not involved
-        # Add a print command at the end
-        # Because in this cutomized version of REPLTool the working directory is changed
-        # That cause problem sending the output back without a print command
-        query = query + "\nprint(" + query.strip().split('\n')[-1] + ")\n"
-
+        query = re.sub(r'\\(?!n)', '', query)
+      
     print(f"\n\nSanitized query = \n\n{query}\n\n")
     return query
 
@@ -84,7 +85,7 @@ class PythonREPLPlotTool(BaseTool):
     Use this tool to execute python commands, especially for data manipulation and visualization.
     Ensure that input commands are properly sanitized. This tool supports dynamic plotting commands and can save plots as needed."""
 
-    name: str = "Python_REPL"
+    name: str = "PythonREPL"
     description: str = (
         "A Python shell enhanced for data access and plotting. Use this tool "
         "to execute python commands, especially for data manipulation and visualization. "
@@ -103,6 +104,7 @@ class PythonREPLPlotTool(BaseTool):
         try:
             if self.sanitize_input:
                 query = sanitize_input(query)
+                query = query.replace('\\n', '\n')
             with change_dir(self.data_directory):               
                 result = self.python_repl.run(query)
                 logging.debug(f"Output from Python agent: {result}")
