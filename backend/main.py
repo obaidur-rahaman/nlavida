@@ -21,6 +21,11 @@ from pydantic import BaseModel, Field
 from langchain_groq import ChatGroq
 import requests
 from langchain.llms.base import BaseLLM
+from langchain_openai import AzureChatOpenAI
+from openai import AzureOpenAI
+
+os.environ['SSL_CERT_FILE'] = '/home/cvncw/zscaler.pem'
+os.environ['REQUESTS_CA_BUNDLE'] = '/home/cvncw/zscaler.pem'
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -47,6 +52,18 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str, list]:
         elif llm_model == "openai":
             OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
             llm = ChatOpenAI(temperature=0, model="gpt-4o")
+        elif llm_model == "azure":
+            # Initialize the Azure client
+            
+            llm = AzureChatOpenAI(
+                    api_key=os.getenv("api_key"),
+                    openai_api_version=os.getenv("api_version"),
+                    azure_endpoint=os.getenv("azure_endpoint"),
+                    azure_deployment=os.getenv("model_deployment"),
+                    model=os.getenv("model_name"),
+                    validate_base_url=False,    
+                )
+
 
         enhanced_prefix = """
         You are an agent designed to write python code and invoke a PythonREPL tool that can execute the python code that you generate.
@@ -87,7 +104,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str, list]:
 
         if llm_model == "groq":
             grand_agent = create_tool_calling_agent(llm, tools, prompt)
-        elif llm_model == "openai":
+        elif llm_model == "openai" or  llm_model == "azure":
             grand_agent = create_openai_functions_agent(
                 tools=tools,
                 llm=llm,
