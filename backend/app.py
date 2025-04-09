@@ -14,7 +14,8 @@ load_dotenv()
 
 #llm_model = "ollama"
 #llm_model = "groq"
-llm_model = "azure"
+#llm_model = "azure"
+llm_model = "openai"
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 app.secret_key = 'supersecretkey'
