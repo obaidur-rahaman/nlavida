@@ -46,7 +46,7 @@ def generate_answer(question: str, llm_model: str) -> Tuple[str, list]:
             llm = ChatGroq(temperature=0, model='llama3-70b-8192')
         elif llm_model == "openai":
             OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-            llm = ChatOpenAI(temperature=0, model="gpt-4o")
+            llm = ChatOpenAI(temperature=0, model="gpt-4.1-mini")
 
         enhanced_prefix = """
         You are an agent designed to write python code and invoke a PythonREPL tool that can execute the python code that you generate.
